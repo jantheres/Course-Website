@@ -1,0 +1,32 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center w-100">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-10 col-lg-8 col-xxl-6">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <h4 class="text-center">Edit Category: {{ category.name }}</h4>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="id_name" class="form-label">Category Name</label>
+                                    {{ form.name.id_for_label }}  <!-- Using the id_for_label to set the label for the input -->
+                                    {{ form.name }}  <!-- Render the field directly -->
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Category</button>
+                            </form>
+                            <div class="d-flex align-items-center justify-content-center mt-3">
+                                <a class="text-primary fw-bold ms-2" href="{% url 'category_list' %}">Go Back to Category List</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

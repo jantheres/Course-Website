@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    .body-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-image: url("{% static 'assets/img/gallery/1.png' %}"); /* Add your image here */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding-top: 50px;
+    }
+
+    .course-box-unique {
+        background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background for readability */
+        padding: 3%;
+        width: 75%;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        max-width: 1000px;
+        height: auto;
+    }
+
+    .course-title-special {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 10px;
+        border-bottom: 2px solid #007bff;
+        padding-bottom: 10px;
+        text-align: center;
+    }
+
+    .course-category-different {
+        font-size: 1.5rem;
+        color: #6c757d;
+        font-weight: 500;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .course-text-weird {
+        font-size: 1.4rem;
+        color: #555;
+        text-align: justify;
+        line-height: 1.8;
+        margin-bottom: 30px;
+    }
+
+    .start-learning-button {
+        display: block;
+        padding: 12px 30px;
+        background-color: #007bff;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        text-align: center;
+        font-weight: 500;
+        transition: background-color 0.3s ease-in-out;
+        margin: 0 auto;
+        width: fit-content;
+    }
+
+    .start-learning-button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Add media query for responsive design */
+    @media (max-width: 768px) {
+        .course-box-unique {
+            width: 90%;
+            padding: 5%;
+        }
+
+        .course-title-special {
+            font-size: 2rem;
+        }
+
+        .course-category-different {
+            font-size: 1.1rem;
+        }
+
+        .course-text-weird {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="body-body">
+    <div class="course-box-unique">
+        <!-- Course Title -->
+        <h1 class="course-title-special">{{ course.course_name }}</h1>
+        
+        <!-- Course Category -->
+        <p class="course-category-different">{{ course.category }}</p>
+        
+        <!-- Course Description -->
+        <p class="course-text-weird">{{ course.description }}</p>
+        
+        <p id="id_duration" class="form-label">Duration: 
+            {{ duration_hours }} hours and {{ duration_minutes }} minutes
+        </p>        
+
+        <!-- Start Learning or Enroll Button -->
+        {% if enrolled %}
+            <a href="{% url 'start_learning' course.id %}" class="start-learning-button">Start Learning</a>
+        {% else %}
+            <form method="POST" action="{% url 'enroll_student' course.id %}">
+                {% csrf_token %}
+                <button type="submit" class="start-learning-button">Enroll Now</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

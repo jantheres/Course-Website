@@ -1,0 +1,52 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Add Questions</h1>
+        <div class="card" style="margin-top: 5%;">
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="course" class="form-label">Select Course:</label>
+                        <select name="course" id="course" class="form-control" required>
+                            {% for course in courses %}
+                                <option value="{{ course.id }}">{{ course.course_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="question_text" class="form-label">Question Text:</label>
+                        <input type="text" name="question_text" id="question_text" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Options:</label>
+                        <div class="form-group">
+                            {% for i in "1234" %}
+                                <div class="input-group mb-2">
+                                    <input type="text" name="options" id="option_{{ i }}" class="form-control" required placeholder="Option {{ i }}">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <input type="radio" name="correct_option" value="{{ i }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Add Question</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

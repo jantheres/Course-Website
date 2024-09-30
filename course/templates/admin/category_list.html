@@ -1,0 +1,58 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+        <div class="d-flex align-items-center justify-content-center w-100" style="margin-top: 10%; margin-bottom: 5%;">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-10 col-lg-8 col-xxl-6">
+                    <div class="card mb-0">
+                        <div class="card-body">
+                            <h4 class="text-center">Category List</h4>
+                            <form method="POST" class="mb-3">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="id_name" class="form-label">Add New Category</label>
+                                    {{ form.name }}
+                                </div>
+                                <button type="submit" class="btn btn-primary">Add Category</button>
+                            </form>
+
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ category.name }}</td>
+                                        <td>
+                                            <a href="{% url 'edit_category' category.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                            <a href="{% url 'delete_category' category.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="3" class="text-center">No categories available.</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+                            <div class="d-flex align-items-center justify-content-center mt-3">
+                                <a class="text-primary fw-bold ms-2" href="{% url 'admin_index' %}">Go Back to Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

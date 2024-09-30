@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    <style>
+    .category-box {
+        background-color: #fff; 
+        border-radius: 15px; 
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+        overflow: hidden; 
+        transition: transform 0.3s; 
+        cursor: pointer; 
+        position: relative; 
+        height: 80%;
+        margin-bottom: 5%;
+    }
+    
+    .category-box:hover {
+        transform: scale(1.05); 
+    }
+    
+    .features-icon {
+        margin-right: 10px; 
+    }
+    
+    .features-icon img {
+        width: 50px; 
+        height: auto; 
+    }
+    
+    .features-caption {
+        flex: 1; 
+    }
+    
+    .features-caption h3 {
+        margin: 0; 
+        text-align: left; 
+    }
+    
+    
+    .single-services a {
+        display: block; 
+        height: 100%; 
+    }
+    
+    </style>
+    </style>
+    <main>
+        <!--? slider Area Start-->
+        <section class="slider-area slider-area2">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height2">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-11 col-md-12">
+                                <div class="hero__caption hero__caption2">
+                                    <h1 data-animation="bounceIn" data-delay="0.2s">About us</h1>
+                                    <!-- breadcrumb Start-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                            <li class="breadcrumb-item"><a href="#">about</a></li> 
+                                        </ol>
+                                    </nav>
+                                    <!-- breadcrumb End -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!--? About Area-1 Start -->
+        <section class="about-area1 fix pt-10">
+            <div class="support-wrapper align-items-center">
+                <div class="left-content1">
+                    <div class="about-icon">
+                        <img src="{% static 'assets/img/icon/about.svg' %}" alt="">
+                    </div>
+                    <!-- section tittle -->
+                    <div class="section-tittle section-tittle2 mb-55">
+                        <div class="front-text">
+                            <h2 class="">Explore Countless Courses from Around the Globe!</h2>
+                            <p>Embark on a Journey of Knowledge: Discover a vast array of online courses from renowned institutions and expert instructors worldwide. Whether you're looking to enhance your skills, pivot your career, or dive into a new passion, our platform offers an extensive selection tailored to your interests. From technology and business to arts and humanities, the world is your classroom. Join a global community of learners and unlock the potential for personal and professional growth, all from the comfort of your home!</p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Get course suggestions tailored to your interests from around the world.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Join millions of people from around the world learning together.</p>
+                        </div>
+                    </div>
+
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Learn at your own pace to fit education into your busy lifestyle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-content1">
+                    <!-- img -->
+                    <div class="right-img">
+                        <img src="{% static 'assets/img/gallery/about.png' %}" alt="">
+
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/hero/1s.png' %}" alt="" style="height: auto; width: 100%;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Area End -->
+        <!--? top subjects Area Start -->
+        <div class="topic-area section-padding40">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Top Categories</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for category in categories %}
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30 category-box">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <div class="features-icon">
+                                    <!-- Assign different images to each category based on a condition or static image path -->
+                                    {% if forloop.counter == 1 %}
+                                    <img src="{% static 'assets/img/icon/cat/it.gif' %}" alt="">
+                                    {% elif forloop.counter == 2 %}
+                                    <img src="{% static 'assets/img/icon/cat/web.gif' %}" alt="">
+                                    {% elif forloop.counter == 3 %}
+                                    <img src="{% static 'assets/img/icon/cat/mobile.gif' %}" alt="">
+                                    {% elif forloop.counter == 4 %}
+                                    <img src="{% static 'assets/img/icon/cat/finance.gif' %}" alt="">
+                                    {% elif forloop.counter == 5 %}
+                                    <img src="{% static 'assets/img/icon/cat/graphic.gif' %}" alt="">
+                                    {% elif forloop.counter == 6 %}
+                                    <img src="{% static 'assets/img/icon/cat/music.gif' %}" alt="">
+                                    {% elif forloop.counter == 7 %}
+                                    <img src="{% static 'assets/img/icon/cat/class.gif' %}" alt="">
+                                    {% elif forloop.counter == 8 %}
+                                    <img src="{% static 'assets/img/icon/cat/tour.gif' %}" alt="">
+                                    {% elif forloop.counter == 9 %}
+                                    <img src="{% static 'assets/img/icon/cat/photo.gif' %}" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="features-caption text-center">
+                                    <h3>{{ category.name }}</h3>  <!-- Display the category name -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- top subjects End -->
+        <!--? About Area-3 Start -->
+        <section class="about-area3 fix">
+            <div class="support-wrapper align-items-center">
+                <div class="right-content3">
+                    <!-- img -->
+                    <div class="right-img">
+                        <img src="{% static 'assets/img/gallery/about3.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="left-content3">
+                    <!-- section tittle -->
+                    <div class="section-tittle section-tittle2 mb-20">
+                        <div class="front-text">
+                            <h2 class="">Learner outcomes on courses you will take</h2>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Gain insights from diverse cultures and expert instructors around the world.</p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p>Participate in global discussions and collaborative projects with learners from different countries.</p>
+                        </div>
+                    </div>
+                    <div class="single-features">
+                        <div class="features-icon">
+                            <img src="{% static 'assets/img/icon/right-icon.svg' %}" alt="">
+                        </div>
+                        <div class="features-caption">
+                            <p> Utilize a wealth of online materials and tools that enhance your learning experience, no matter where you are.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- About Area End -->
+    </main>
+    {% endblock %}

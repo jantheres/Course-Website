@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate of Achievement</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> <!-- html2canvas library -->
+    <style>
+        /* Same styles as before for the certificate layout */
+        .cursive {
+            font-family: 'Pinyon Script', cursive;
+        }
+
+        .sans {
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .block {
+            display: block;
+        }
+
+        .underline {
+            border-bottom: 1px solid #777;
+            padding: 5px;
+            margin-bottom: 15px;
+        }
+
+        .margin-0 {
+            margin: 0;
+        }
+
+        .padding-0 {
+            padding: 0;
+        }
+
+        .pm-empty-space {
+            height: 40px;
+            width: 100%;
+        }
+
+        body {
+            padding: 20px 0;
+            background: #ccc;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .pm-certificate-container {
+            position: relative;
+            width: 1000px;
+            height: 700px;
+            background-color: #618597;
+            padding: 50px;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+            background-image: url("{% static 'assets/img/logo/1.png' %}"), linear-gradient(45deg, #618597 25%, #b2cad6 25%, #b2cad6 50%, #618597 50%, #618597 75%, #b2cad6 75%, #b2cad6);
+            background-size: cover, 50px 50px;
+            background-position: center;
+            margin: 0 auto;
+        }
+
+        .outer-border {
+            width: 980px;
+            height: 680px;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            border: 5px solid #fff;
+        }
+
+        .inner-border {
+            width: 940px;
+            height: 640px;
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            border: 5px solid #fff;
+        }
+
+        .pm-certificate-border {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            background-color: #fff;
+            margin: auto;
+            padding: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .pm-certificate-title {
+            text-align: center;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 45px;
+            margin-top: 30px;
+            color: #2e4053;
+        }
+
+        .pm-certificate-body {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .pm-name-text {
+            font-size: 35px;
+            font-family: 'Pinyon Script', cursive;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .pm-earned {
+            margin: 20px 0;
+        }
+
+        .pm-earned-text {
+            font-size: 20px;
+            color: #444;
+        }
+
+        .pm-credits-text {
+            font-size: 22px;
+            color: #2e4053;
+            font-weight: bold;
+        }
+
+        .pm-course-title {
+            margin-top: 15px;
+            font-size: 20px;
+        }
+
+        .pm-course-title .underline {
+            border-bottom: 2px solid #2e4053;
+        }
+
+        .pm-certificate-footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .pm-certified {
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .pm-certified .underline {
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .pm-certificate-container {
+                width: 100%;
+                height: auto;
+                padding: 20px;
+            }
+
+            .outer-border,
+            .inner-border,
+            .pm-certificate-border {
+                width: calc(100% - 20px);
+                height: auto;
+                max-width: 900px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container pm-certificate-container" id="certificate-content">
+        <div class="outer-border"></div>
+        <div class="inner-border"></div>
+        
+        <div class="pm-certificate-border">
+            <div class="pm-certificate-title">
+                <h2>Certificate of Achievement</h2>
+            </div>
+            <div class="pm-certificate-body">
+                <div class="pm-name-text underline">
+                    {{ user.full_name }}
+                </div>
+                <div class="pm-earned">
+                    <span class="pm-earned-text">has successfully completed <strong>{{ course.course_name }}</strong> From Courses.com by watching and understanding {{ course_progress.completed_videos }} videos and scoring a good percentage of mark in the Quiz.</span>
+                </div>
+            </div>
+            <div class="pm-certificate-footer">
+                <div class="pm-certified">
+                    <span class="pm-credits-text"><img style="height: 30px; width: 100px;" src="{% static 'assets/img/director.png' %}"></span>
+                    <div class="underline"></div>
+                    <span class="bold">Director</span>
+                </div>
+                <img style="height: 5%; width: 5%;" src="{% static 'admin/assets/images/logos/1.png' %}">
+                <div class="pm-certified">
+                    <div class="underline"><img style="height: 30px; width: 100px;" src="{% static 'assets/img/ceo.png' %}"></div>
+                    <span class="bold">Courses.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button to download certificate as PDF -->
+    <button style="height: 50px; width: auto; background-color: rgb(46, 131, 52);color: white;font-weight: bold; border-radius: 5px; border-width: 0cap;margin-left: 48%;margin-top: 3%;margin-bottom: 3%;" onclick="downloadCertificate()">Download as PDF</button>
+
+    <script>
+        function downloadCertificate() {
+            const { jsPDF } = window.jspdf;
+
+            html2canvas(document.getElementById("certificate-content")).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                const pdf = new jsPDF({ unit: 'in', format: 'a4', orientation: 'landscape' });
+                
+                // Add image of the certificate to the PDF
+                pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+                
+                // Save the PDF
+                pdf.save("certificate.pdf");
+            });
+        }
+    </script>
+</body>
+</html>

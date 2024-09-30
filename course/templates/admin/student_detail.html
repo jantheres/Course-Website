@@ -1,0 +1,45 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="my-4">Student Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ student.full_name }}</h5>
+                <p><strong>Email:</strong> {{ student.email }}</p>
+                <p><strong>Phone Number:</strong> {{ student.phone_number }}</p>
+                <p><strong>Date of Birth:</strong> {{ student.date_of_birth|date:"Y-m-d" }}</p>
+                <p><strong>Created On:</strong> {{ student.created_on|date:"Y-m-d H:i:s" }}</p>
+                <p><strong>Completed Courses:</strong> {{ completed_courses_count }}</p> <!-- Show completed courses count -->
+            </div>
+        </div>
+
+        <h2 class="my-4">Enrolled Courses</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Category</th>
+                    <th>Enrollment Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for enrollment in enrollments %}
+                <tr>
+                    <td>{{ enrollment.course.course_name }}</td>
+                    <td>{{ enrollment.course.category.name }}</td>
+                    <td>{{ enrollment.enrollment_date|date:"Y-m-d H:i:s" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">No courses enrolled.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'student_list' %}" class="btn btn-secondary mt-3">Back to Student List</a> <!-- Button to go back -->
+    </div>
+
+{% endblock %}

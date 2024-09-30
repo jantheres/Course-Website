@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* styles.css */
+.form-container {
+    max-width: 600px;  /* Set max width to 600px */
+    width: 100%;       /* Allow it to take full width within the max */
+    margin: auto;      /* Center it horizontally */
+}
+
+</style>
+<main>
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Register Here</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Register</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Area Start -->
+    <section class="contact-section">
+        <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="row justify-content-center">
+                <div class="col-lg-6" style="min-width: 600px; width: 100%;">
+                    <h2 class="contact-title text-center">Create an Account</h2>
+                    <form class="form-contact contact_form" method="POST" id="registrationForm" novalidate="novalidate">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-group">
+                            {{ form.full_name.label_tag }}
+                            <input type="text" name="full_name" class="form-control" value="{{ form.full_name.value|default:'' }}" />
+                            {{ form.full_name.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.email.label_tag }}
+                            <input type="email" name="email" class="form-control" value="{{ form.email.value|default:'' }}" />
+                            {{ form.email.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.phone_number.label_tag }}
+                            <input type="text" name="phone_number" class="form-control" value="{{ form.phone_number.value|default:'' }}" />
+                            {{ form.phone_number.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.date_of_birth.label_tag }}
+                            <input type="date" name="date_of_birth" class="form-control" value="{{ form.date_of_birth.value|default:'' }}" />
+                            {{ form.date_of_birth.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label_tag }}
+                            <input type="password" name="password" class="form-control" value="{{ form.password.value|default:'' }}" />
+                            {{ form.password.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.confirm_password.label_tag }}
+                            <input type="password" name="confirm_password" class="form-control" value="{{ form.confirm_password.value|default:'' }}" />
+                            {{ form.confirm_password.errors }}
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button button-contactForm boxed-btn">Register</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Registration Area End -->
+</main>
+
+{% endblock %}

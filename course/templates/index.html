@@ -1,0 +1,225 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+.course-description {
+    display: -webkit-box;                   
+    -webkit-box-orient: vertical;          
+    -webkit-line-clamp: 2;                  
+    overflow: hidden;                       
+    text-overflow: ellipsis;              
+}
+
+</style>
+<style>
+    <style>
+    .category-box {
+        background-color: #fff; 
+        border-radius: 15px; 
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
+        overflow: hidden; 
+        transition: transform 0.3s; 
+        cursor: pointer; 
+        position: relative; 
+        height: 80%;
+        margin-bottom: 5%;
+    }
+    
+    .category-box:hover {
+        transform: scale(1.05); 
+    }
+    
+    .features-icon {
+        margin-right: 10px; 
+    }
+    
+    .features-icon img {
+        width: 50px; 
+        height: auto; 
+    }
+    
+    .features-caption {
+        flex: 1; 
+    }
+    
+    .features-caption h3 {
+        margin: 0; 
+        text-align: left; 
+    }
+    
+    
+    .single-services a {
+        display: block; 
+        height: 100%; 
+    }
+    
+    </style>
+    </style>
+<main>
+        <!--? slider Area Start-->
+        <section class="slider-area ">
+            <div class="slider-active">
+                <!-- Single Slider -->
+                <div class="single-slider slider-height d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-7 col-md-12">
+                                <div class="hero__caption">
+                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Find the Course,<br> Just For You.</h1>
+                                    <p data-animation="fadeInLeft" data-delay="0.4s">Ignite Your Passion: Explore Online Courses Tailored to Your Unique Interests – Your Future Starts Here!</p>
+                                    {% if request.user.is_authenticated %}
+                                    <form method="GET" action="{% url 'courses' %}" class="d-flex mb-4">
+                                        <input type="text" name="search" class="form-control" placeholder="Search courses..." aria-label="Search" value="{{ search_query }}" required style="height: 70px; font-size: large;">
+                                        <button type="submit" class="btn btn-primary ms-2"><i class="fa fa-search"></i></button>
+                                    </form>                                 
+                                    {% else %}
+                                        <a href="{% url 'register_user' %}" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join for Free</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </section>
+        <!-- ? services-area -->
+        <div class="services-area">
+            <div class="container">
+                <div class="row justify-content-sm-center">
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon1.svg' %}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Countless Courses</h3>
+                                <p>Explore Countless Online Courses from Around the Globe!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon2.svg' %}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Expert instructors</h3>
+                                <p>Experience Exceptional Learning with Expert Instructors Leading the Way!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="single-services mb-30">
+                            <div class="features-icon">
+                                <img src="{% static 'assets/img/icon/icon3.svg' %}" alt="">
+                            </div>
+                            <div class="features-caption">
+                                <h3>Life time access</h3>
+                                <p>Access Your Courses Anytime, Anywhere – Lifetime Learning at Your Fingertips!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Courses area start -->
+        <div class="courses-area section-padding40 fix">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Our featured courses</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="courses-actives">
+                    <div class="row">
+                        <div class="courses-actives">
+                            <div class="row">
+                                {% for course in courses %}
+                                <div class="properties pb-20 col-md-5">
+                                    <div class="properties__card">
+                                        <div class="properties__img overlay1">
+                                            <a href="#"><img src="{% static selected_images|slice:forloop.counter0 %}" alt=""></a>  <!-- Display the random image -->
+                                        </div>
+                                        <div class="properties__caption">
+                                            <p>{{ course.category.name }}</p>  <!-- Display the course category name -->
+                                            <h3><a href="#">{{ course.course_name }}</a></h3>  <!-- Display the course name -->
+                                            <p class="course-description">{{ course.description|truncatewords:20 }}...</p>  <!-- Truncated description -->
+
+                                            <a href="{% url 'course_detail' course.id %}" class="border-btn border-btn2">Find out more</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+            </div>
+        </div>
+        <!-- Courses area End -->
+        <!--? top subjects Area Start -->
+        <div class="topic-area section-padding40">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>Explore top Categories</h2>
+                        </div>
+                    </div>
+                </div>
+
+<div class="row">
+    {% for category in categories %}
+    <div class="col-lg-4 col-md-6 col-sm-8">
+        <div class="single-services mb-30 category-box">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="features-icon">
+                    <!-- Assign different images to each category based on a condition or static image path -->
+                    {% if forloop.counter == 1 %}
+                    <img src="{% static 'assets/img/icon/cat/it.gif' %}" alt="">
+                    {% elif forloop.counter == 2 %}
+                    <img src="{% static 'assets/img/icon/cat/web.gif' %}" alt="">
+                    {% elif forloop.counter == 3 %}
+                    <img src="{% static 'assets/img/icon/cat/mobile.gif' %}" alt="">
+                    {% elif forloop.counter == 4 %}
+                    <img src="{% static 'assets/img/icon/cat/finance.gif' %}" alt="">
+                    {% elif forloop.counter == 5 %}
+                    <img src="{% static 'assets/img/icon/cat/graphic.gif' %}" alt="">
+                    {% elif forloop.counter == 6 %}
+                    <img src="{% static 'assets/img/icon/cat/music.gif' %}" alt="">
+                    {% elif forloop.counter == 7 %}
+                    <img src="{% static 'assets/img/icon/cat/class.gif' %}" alt="">
+                    {% elif forloop.counter == 8 %}
+                    <img src="{% static 'assets/img/icon/cat/tour.gif' %}" alt="">
+                    {% elif forloop.counter == 9 %}
+                    <img src="{% static 'assets/img/icon/cat/photo.gif' %}" alt="">
+                    {% endif %}
+                </div>
+                <div class="features-caption text-center">
+                    <h3>{{ category.name }}</h3>  <!-- Display the category name -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+                
+                <div class="row justify-content-center">
+                    <div class="col-xl-12">
+                        <div class="section-tittle text-center mt-20">
+                            <a href="{% url 'courses' %}" class="border-btn">View More Categories</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- top subjects End -->
+    </main>
+    {% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+    <!-- Slider Area Start -->
+    <section class="slider-area slider-area2" >
+        <div class="slider-active">
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Our Courses</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Services</a></li> 
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter and Search Section -->
+    <div class="container" style="margin-top: 5%;">
+        <form method="GET" action="{% url 'courses' %}">
+            <div class="row mb-5">
+                <!-- Category Filter -->
+                <div class="col-md-4">
+                    <select name="category" class="form-control" onchange="this.form.submit()" style="height: 53px;">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category_id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+        
+                <!-- Search Bar -->
+                <div class="col-md-6">
+                    <input type="text" name="search" class="form-control" placeholder="Search courses..." value="{{ search_query }}" style="height: 53px;">
+                </div>
+        
+                <!-- Submit Button -->
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary btn-block">Search</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+
+    <!-- Courses Area Start -->
+    <div class="courses-area section-padding40 fix">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-7 col-lg-8">
+                    <div class="section-tittle text-center mb-55">
+                        <h2>Our Featured Courses</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- Loop through all the courses -->
+                {% for course in courses %}
+                <div class="col-lg-4">
+                    <div class="properties properties2 mb-30">
+                        <div class="properties__card">
+                            <div class="properties__caption">
+                                <p>{{ course.category.name }}</p>
+                                <h3><a href="#">{{ course.course_name }}</a></h3>
+                                <p>{{ course.description|truncatewords:20 }}</p>
+
+                                <a href="{% url 'course_detail' course.id %}" class="border-btn border-btn2">Find out more</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <p>No courses available for the selected category.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Courses Area End -->
+</main>
+
+{% endblock %}

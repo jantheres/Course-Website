@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Login Here</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Area Start -->
+    <section class="contact-section">
+        <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="row justify-content-center">
+                <div class="col-lg-6" style="min-width: 600px; width: 100%;">
+                    <h2 class="contact-title text-center">Login to Your Account</h2>
+                    <form class="form-contact contact_form" method="POST" id="loginForm" novalidate="novalidate">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="form-group">
+                            {{ form.username.label_tag }}
+                            <input type="text" name="username" class="form-control" value="{{ form.username.value|default:'' }}" />
+                            {{ form.username.errors }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label_tag }}
+                            <input type="password" name="password" class="form-control" value="{{ form.password.value|default:'' }}" />
+                            {{ form.password.errors }}
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button button-contactForm boxed-btn">Login</button>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <p>Forgot Password? <a href="{% url 'forgot_password' %}" style="color:rgb(212, 55, 60);">Click Here!</a></p>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <p>Don't have an account? <a href="{% url 'register_user' %}" style="color:blueviolet;">Register here</a></p>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <p>Try our searvice without logging in? <a href="https://jantheres-courserec-app-xpjq6s.streamlit.app/" style="color:rgb(226, 43, 137);">Click Here!</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login Area End -->
+</main>
+
+{% endblock %}
