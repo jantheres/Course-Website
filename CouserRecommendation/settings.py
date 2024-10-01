@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'CouserRecommendation.urls'
@@ -121,14 +122,16 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# Directory where Django will collect all static files when running `collectstatic`
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this is not a directory you manually work with
 
+# Directories where Django will search for static files during development
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # This should point to the folder containing your static assets
+]
+
+# URL to access static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'course' / 'static']  # Use Path object for static files directory
-
-# Specify the directory where static files will be collected
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
