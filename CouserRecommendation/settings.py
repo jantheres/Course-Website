@@ -49,7 +49,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'CouserRecommendation.urls'
@@ -85,11 +84,14 @@ WSGI_APPLICATION = 'CouserRecommendation.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'courses_gznd',
+        'USER': 'courses_gznd_user',
+        'PASSWORD': '3WxGzYtOouei8Gyo0dKHrFu12DUGbjJA',
+        'HOST': 'dpg-crtq5ed2ng1s73cc3840-a.oregon-postgres.render.com',
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -122,23 +124,26 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Directory where Django will collect all static files when running `collectstatic`
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Ensure this is not a directory you manually work with
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# Directories where Django will search for static files during development
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # This is where `collectstatic` will gather static files for production
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # This should point to the folder containing your static assets
+    os.path.join(BASE_DIR, 'course/static'),  # Adjust this path based on your project structure
 ]
 
-# URL to access static files
-STATIC_URL = '/static/'
+# Specify the directory where static files will be collected
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 import os
 

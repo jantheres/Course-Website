@@ -883,7 +883,6 @@ def delete_question(request, question_id):
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
-from weasyprint import HTML, CSS
 @login_required_user
 def download_certificate(request):
     user = request.user  # Assuming the user is authenticated and their data is used.
