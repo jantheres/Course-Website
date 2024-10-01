@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from CouserRecommendation.CouserRecommendation import settings
+from CouserRecommendation import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
